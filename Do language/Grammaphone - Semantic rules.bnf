@@ -1,0 +1,28 @@
+PROG -> prog id : BLOCK :) .                🗸 # For every : in the program, add sub-scope to the scope tree and go to it
+BLOCK -> STMT BLOCK .
+BLOCK -> done .                             🗸 # Go to parent in scope tree
+STMT -> DECL .
+STMT -> ASSIGN .
+STMT -> IF_ELSE .
+STMT -> WHILE .
+DECL -> data_type id ; .                    🗸 # CHECK_UNIQUE_ID and update symbol table accordingly
+ASSIGN -> set id = L_LOG_E ; .              🗸 # TYPE_CHECK, check that lookup(id).type == L_LOG_E.type
+IF_ELSE -> if ( L_LOG_E ) : BLOCK ELSE .
+ELSE -> else : BLOCK .
+ELSE -> .
+WHILE -> while ( L_LOG_E ) : BLOCK .
+L_LOG_E -> L_LOG_E l_log_op H_LOG_E .       🗸 # TYPE_CHECK, check that L_LOG_E.type == H_LOG_E.type
+L_LOG_E -> H_LOG_E .                        🗸 # SET_TYPE, L_LOG_E.type = H_LOG_E.type
+H_LOG_E -> H_LOG_E h_log_op BOOL_E .        🗸 # TYPE_CHECK, check that H_LOG_E.type == BOOL_E.type
+H_LOG_E -> BOOL_E .                         🗸 # SET_TYPE, H_LOG_E.type = BOOL_E.type
+BOOL_E -> BOOL_E bool_op E .                🗸 # TYPE_CHECK, check that BOOL_E.type == E.type
+BOOL_E -> E .                               🗸 # SET_TYPE, BOOL_E.type = E.type
+E -> E expr_op T .                          🗸 # TYPE_CHECK, check that E.type == T.type
+E -> T .                                    🗸 # SET_TYPE, E.type = T.type
+T -> T term_op F .                          🗸 # TYPE_CHECK, check that T.type == F.type
+T -> F .                                    🗸 # SET_TYPE, T.type = F.type
+F -> id .                                   🗸 # VALIDATE_ID_EXIST + SET_TYPE, if (lookup(id) is not NULL) F.type = lookup(id).type
+F -> literal .                              🗸 # SET_TYPE, F.type = literal.type
+F -> ( L_LOG_E ) .                          🗸 # SET_TYPE, F.type = L_LOG_E.type
+F -> ! F .                                  🗸 # Maybe type check? Maybe set type?
+F -> - F .                                  🗸 # Maybe type check? Maybe set type?

@@ -1,0 +1,31 @@
+# PROGRAM
+<program> ::= "prog" <IDENTIFIER> ":" <block> ":)"
+
+# BLOCK
+<block> ::= <stmt> <block> | "done"
+
+# STATEMENTS
+<stmt> ::= <var_decl_stmt> | <assignment_stmt> | <if_else_stmt> | <while_stmt>
+## variable declaration
+<var_decl_stmt> ::= <DATA_TYPE> <IDENTIFIER> ";"
+## assignment
+<assignment_stmt> ::= "set" <IDENTIFIER> "=" <l_log_expr> ";"
+## if else
+<if_else_stmt> ::= "if" "(" <l_log_expr> ")" ":" <block> <else_stmt>
+<else_stmt> ::= "else" ":" <block> | <EMPTY>
+## while
+<while_stmt> ::= "while" "(" <l_log_expr> ")" ":" <block>
+
+# EXPRESSIONS
+<l_log_expr> ::= <h_log_expr> | <l_log_expr> <l_log_op> <h_log_expr>
+<h_log_expr> ::= <bool_expr> | <h_log_expr> <h_log_op> <bool_expr>
+<bool_expr> ::= <expr> | <bool_expr> <bool_op> <expr>
+<expr> ::= <term> | <expr> <expr_op> <term>
+<term> ::= <factor> | <term> <term_op> <factor>
+<factor> ::= <IDENTIFIER> | <LITERAL> | "(" <l_log_expr> ")" | "!" <factor> | "-" <factor>
+
+<l_log_op> ::= "||"
+<h_log_op> ::= "&&"
+<bool_op> ::= "==" | "!=" | ">" | ">=" | "<" | "<="
+<expr_op> ::= "+" | "-"
+<term_op> ::= "*" | "/" | "%"
