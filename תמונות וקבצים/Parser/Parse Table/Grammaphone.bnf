@@ -1,0 +1,28 @@
+PROG -> prog id : BLOCK :) .
+BLOCK -> STMT BLOCK .
+BLOCK -> done .
+STMT -> DECL .
+STMT -> ASSIGN .
+STMT -> IF_ELSE .
+STMT -> WHILE .
+DECL -> data_type id ; .
+ASSIGN -> set id = L_LOG_E ; .
+IF_ELSE -> if ( L_LOG_E ) : BLOCK ELSE .
+ELSE -> else : BLOCK .
+ELSE -> .
+WHILE -> while ( L_LOG_E ) : BLOCK .
+L_LOG_E -> L_LOG_E l_log_op H_LOG_E .
+L_LOG_E -> H_LOG_E .
+H_LOG_E -> H_LOG_E h_log_op BOOL_E .
+H_LOG_E -> BOOL_E .
+BOOL_E -> BOOL_E bool_op E .
+BOOL_E -> E .
+E -> E expr_op T .
+E -> T .
+T -> T term_op F .
+T -> F .
+F -> id .
+F -> literal .
+F -> ( L_LOG_E ) .
+F -> ! F .
+F -> - F .

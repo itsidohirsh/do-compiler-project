@@ -1,0 +1,27 @@
+# PROGRAM
+PROGRAM -> prog IDENTIFIER : BLOCK :) .
+
+# BLOCK
+BLOCK -> STMT BLOCK | done .
+
+# STATEMENTS
+STMT -> VAR_DECL_STMT | ASSIGNMENT_STMT | IF_ELSE_STMT | WHILE_STMT .
+
+## variable declaration
+VAR_DECL_STMT -> DATA_TYPE IDENTIFIER ; .
+## assignment
+ASSIGNMENT_STMT -> set IDENTIFIER = EXPR ; .
+## if else
+IF_ELSE_STMT -> if ( EXPR ) : BLOCK ELSE_STMT .
+ELSE_STMT -> | else : BLOCK .
+## while
+WHILE_STMT -> while ( EXPR ) : BLOCK .
+
+# EXPRESSIONS
+EXPR -> TERM | TERM EXPR_OP EXPR .
+TERM -> FACTOR | FACTOR TERM_OP TERM .
+FACTOR -> IDENTIFIER | LITERAL | ( EXPR ) | ! FACTOR | - FACTOR .
+
+# Should be: EXPR_OP -> + | - | || | && .
+EXPR_OP -> + | - | && .
+TERM_OP -> * | / | == | != | > | >= | < | <= .
