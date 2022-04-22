@@ -1,2 +1,2 @@
-# Do-Compiler-Book
-Project book for the Do programming language compiler project 📕
+# Do Compiler Project
+Project documentation for the Do programming language Compiler 📕
